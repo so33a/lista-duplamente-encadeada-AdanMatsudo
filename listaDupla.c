@@ -2,7 +2,23 @@
 #include <stdlib.h>
 #include "listaDupla.h"
 
+  link buscaMenor(ListaDupla l){
+	link menor;
+	int i = 0;
+	link atual = ListaDupla->head;
 
+	while(atual != ListaDupla->z){
+  	if(i == 0){   
+  	  menor = atual;
+  	}else if(menor->item > atual->item){
+  		menor = atual;
+  	}
+  	atual = atual->next;
+  	i++;
+	}
+
+	return menor;
+}
 
 
 link novoNo (int item, link prev, link next) {
@@ -15,6 +31,11 @@ link novoNo (int item, link prev, link next) {
   aux->prev = prev;
   aux->next = next;
   return aux;
+}
+
+link menorElemento(ListaDupla l, int item){
+  
+  
 }
 
 
