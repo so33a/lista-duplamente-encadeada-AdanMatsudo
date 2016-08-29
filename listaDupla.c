@@ -2,23 +2,7 @@
 #include <stdlib.h>
 #include "listaDupla.h"
 
-  link buscaMenor(ListaDupla l){
-	link menor;
-	int i = 0;
-	link atual = ListaDupla->head;
 
-	while(atual != ListaDupla->z){
-  	if(i == 0){   
-  	  menor = atual;
-  	}else if(menor->item > atual->item){
-  		menor = atual;
-  	}
-  	atual = atual->next;
-  	i++;
-	}
-
-	return menor;
-}
 
 
 link novoNo (int item, link prev, link next) {
@@ -33,17 +17,12 @@ link novoNo (int item, link prev, link next) {
   return aux;
 }
 
-link menorElemento(ListaDupla l, int item){
-  
-  
-}
-
 
 ListaDupla inicializa() {
   ListaDupla aux;
   aux = malloc(sizeof *aux);
   aux->head = NULL;
-  aux->z = novoNo(0, NULL, NULL);
+  aux->z = novoNo(NULL, NULL, NULL);
   return aux;
 }
 
@@ -53,7 +32,7 @@ void insereDepois (ListaDupla l, link x, link t) {
     t->next = l->z;
     t->prev = l->z;
     l->z->prev = t;
-    l->z->next = t; 
+    l->z->next = t;
   } else {
     t->next = x->next;
     t->prev = x;
@@ -95,7 +74,7 @@ link buscar(ListaDupla l, int item) {
   }
   return NULL;
 }
-/* 
+/*
 void insereAntes (ListaDupla l, link x, link t);
 */
 
@@ -105,10 +84,37 @@ void destroiLista(ListaDupla l) {
     l->head = t->next;
     l->z->next = t->next;
     l->head->prev = l->z;
-    free(t); 
+    free(t);
     t = l->head;
-  } 
+  }
   free(t);
   free(l);
 }
 
+link buscaMenor(ListaDupla l){
+	link atual = l->head;
+	link menor = atual;
+
+	while(atual != l->z){
+		if(menor->item > atual->item){
+			menor = atual;
+		}
+		atual = atual->next;
+	}
+
+	return menor;
+}
+void ordenar(ListaDupla l){
+	link p, t;
+	int aux;
+	for (p = l->head; p->item != NULL; p = p->next){
+		for (t = p->next; t->item != NULL; t = t->next){
+			if ((p->item) > (t->item)){
+				aux = p->item;
+				p->item = t->item;
+				t->item = aux;
+			}
+
+		}
+	}
+}
